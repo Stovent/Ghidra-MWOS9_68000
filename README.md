@@ -2,7 +2,7 @@
 
 ## Special thanks
 
-- Phlosioneer (https://github.com/Phlosioneer) for its original source code that helped me getting started fast.
+- Phlosioneer (https://github.com/Phlosioneer) for his original source code that helped me getting started fast.
 
 ## TODO
 
@@ -11,6 +11,7 @@
 - Add all system calls
     - Handle the OS-9 return value.
     - Add all their parameters.
+- Add support for module groups (ideally load all of them at the same time).
 - Add program exec input registers.
 - Add calling conventions to standard functions
 - Set parameters of standard routines.
