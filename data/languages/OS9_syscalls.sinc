@@ -1,0 +1,155 @@
+
+define pcodeop os9_FFork_child_id;
+define pcodeop os9_FFork_module_name;
+
+define pcodeop os9_FFork;
+:os9_FFork is op015=0x4E40 ; syscall=3 {
+    CF = os9_FFork(D0w,D1,D2,D3w,D4w,A0,A1);
+    if (CF) goto <error>;
+    D0w = os9_FFork_child_id();
+    A0 = os9_FFork_module_name();
+
+    goto inst_next;
+
+    <error>
+    D1w = os9_syscall_error();
+}
+
+define pcodeop os9_FWait_child_id;
+define pcodeop os9_FWait_child_exit_status;
+
+define pcodeop os9_FWait;
+:os9_FWait is op015=0x4E40 ; syscall=4 {
+    CF = os9_FWait();
+    if (CF) goto <error>;
+    D0w = os9_FWait_child_id();
+    D1w = os9_FWait_child_exit_status();
+
+    goto inst_next;
+
+    <error>
+    D1w = os9_syscall_error();
+}
+
+
+define pcodeop os9_FChain;
+:os9_FChain is op015=0x4E40 ; syscall=5 {
+    CF = os9_FChain(D0w,D1,D2,D3w,D4w,A0,A1);
+    if (CF) goto <error>;
+    <loop>
+    goto <loop>;
+    <error>
+    D1w = os9_syscall_error();
+}
+
+
+define pcodeop os9_FExit;
+:os9_FExit is op015=0x4E40 ; syscall=6 {
+    CF = os9_FExit(D1w);
+    if (CF) goto <error>;
+    <loop>
+    goto <loop>;
+    <error>
+    D1w = os9_syscall_error();
+}
+
+
+define pcodeop os9_FIcpt;
+:os9_FIcpt is op015=0x4E40 ; syscall=9 {
+    os9_FIcpt(A0,A6);
+
+}
+
+
+define pcodeop os9_FPErr;
+:os9_FPErr is op015=0x4E40 ; syscall=15 {
+    os9_FPErr(D0w,D1w);
+
+}
+
+
+define pcodeop os9_FRTE;
+:os9_FRTE is op015=0x4E40 ; syscall=30 {
+    os9_FRTE();
+
+    <loop>
+    goto <loop>;
+}
+
+
+define pcodeop os9_FSysDbg;
+:os9_FSysDbg is op015=0x4E40 ; syscall=82 {
+    CF = os9_FSysDbg();
+    if (CF) goto <error>;
+
+    goto inst_next;
+
+    <error>
+    D1w = os9_syscall_error();
+}
+
+define pcodeop os9_IAttach_device_table_entry;
+
+define pcodeop os9_IAttach;
+:os9_IAttach is op015=0x4E40 ; syscall=128 {
+    CF = os9_IAttach(D0b,A0);
+    if (CF) goto <error>;
+    A2 = os9_IAttach_device_table_entry();
+
+    goto inst_next;
+
+    <error>
+    D1w = os9_syscall_error();
+}
+
+
+define pcodeop os9_IDetach;
+:os9_IDetach is op015=0x4E40 ; syscall=129 {
+    CF = os9_IDetach(A2);
+    if (CF) goto <error>;
+
+    goto inst_next;
+
+    <error>
+    D1w = os9_syscall_error();
+}
+
+define pcodeop os9_IOpen_path_number;
+define pcodeop os9_IOpen_pathname;
+
+define pcodeop os9_IOpen;
+:os9_IOpen is op015=0x4E40 ; syscall=132 {
+    CF = os9_IOpen(D0b,A0);
+    if (CF) goto <error>;
+    D0w = os9_IOpen_path_number();
+    A0 = os9_IOpen_pathname();
+
+    goto inst_next;
+
+    <error>
+    D1w = os9_syscall_error();
+}
+
+
+define pcodeop os9_IGetStt;
+:os9_IGetStt is op015=0x4E40 ; syscall=141 {
+    CF = os9_IGetStt(D0w,D1w);
+    if (CF) goto <error>;
+
+    goto inst_next;
+
+    <error>
+    D1w = os9_syscall_error();
+}
+
+
+define pcodeop os9_IClose;
+:os9_IClose is op015=0x4E40 ; syscall=143 {
+    CF = os9_IClose(D0w);
+    if (CF) goto <error>;
+
+    goto inst_next;
+
+    <error>
+    D1w = os9_syscall_error();
+}

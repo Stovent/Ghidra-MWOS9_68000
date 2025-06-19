@@ -1,0 +1,97 @@
+[
+    {
+        "id": 3,
+        "name": "F$Fork",
+        "input": ["D0w", "D1", "D2", "D3w", "D4w", "A0", "A1"],
+        "output": [
+            {"child_id": "D0w"},
+            {"module_name": "A0"}
+        ]
+    },
+    {
+        "id": 4,
+        "name": "F$Wait",
+        "input": [],
+        "output": [
+            {"child_id": "D0w"},
+            {"child_exit_status": "D1w"}
+        ]
+    },
+    {
+        "id": 5,
+        "name": "F$Chain",
+        "input": ["D0w", "D1", "D2", "D3w", "D4w", "A0", "A1"],
+        "output": [],
+        "noreturn": ""
+    },
+    {
+        "id": 6,
+        "name": "F$Exit",
+        "input": ["D1w"],
+        "output": [],
+        "noreturn": ""
+    },
+    {
+        "id": 9,
+        "name": "F$Icpt",
+        "input": ["A0", "A6"],
+        "output": [],
+        "noerror": ""
+    },
+    {
+        "id": 15,
+        "name": "F$PErr",
+        "input": ["D0w", "D1w"],
+        "output": [],
+        "noerror": ""
+    },
+    {
+        "id": 30,
+        "name": "F$RTE",
+        "input": [],
+        "output": [],
+        "noerror": "",
+        "noreturn": ""
+    },
+    {
+        "id": 82,
+        "name": "F$SysDbg",
+        "input": [],
+        "output": []
+    },
+    {
+        "id": 128,
+        "name": "I$Attach",
+        "input": ["D0b", "A0"],
+        "output": [
+            {"device_table_entry": "A2"}
+        ]
+    },
+    {
+        "id": 129,
+        "name": "I$Detach",
+        "input": ["A2"],
+        "output": []
+    },
+    {
+        "id": 132,
+        "name": "I$Open",
+        "input": ["D0b", "A0"],
+        "output": [
+            {"path_number": "D0w"},
+            {"pathname": "A0"}
+        ]
+    },
+    {
+        "id": 141,
+        "name": "I$GetStt",
+        "input": ["D0w", "D1w"],
+        "output": []
+    },
+    {
+        "id": 143,
+        "name": "I$Close",
+        "input": ["D0w"],
+        "output": []
+    }
+]

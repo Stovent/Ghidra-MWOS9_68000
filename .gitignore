@@ -1,0 +1,14 @@
+/*
+
+!data/
+!ghidra_scripts/
+!lib/
+!os/
+!src/
+
+!.gitignore
+!build.gradle
+!extension.properties
+!LICENSE
+!Module.manifest
+!README.md

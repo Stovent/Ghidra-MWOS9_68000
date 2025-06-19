@@ -1,0 +1,5 @@
+<opinions>
+    <constraint loader="Microware OS-9 68000 module" compilerSpecId="default">
+    	<constraint processor="68000" endian="big" size="32" />
+    </constraint>
+</opinions>

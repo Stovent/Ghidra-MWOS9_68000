@@ -1,0 +1,71 @@
+define token syscall_number (16)
+    syscall = (0,7)
+;
+
+# TODO: if I choose to make an instruction per syscall, the below attach is not necessary and I should switch to syscall = (0,15)
+
+attach names syscall [ 
+    "F$Link" "F$Load" "F$UnLink" "F$Fork" "F$Wait" "F$Chain" "F$Exit" "F$Mem"
+    "F$Send" "F$Icpt" "F$Sleep" "F$SSpd" "F$ID" "F$SPrior" "F$STrap" "F$PErr"
+    
+    "F$PrsNam" "F$CmpNam" "SchBit" "F$AllBit" "F$DelBit" "F$Time" "F$STime" "F$CRC"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "_" "_" "_" "_" "_" "_" "_" "_"
+    "F$SRqMem" "F$SRtMem" "F$IRQ" "F$IOQu" "_" "_" "_" "_"
+
+    "_" "_" "_" "_" "_" "_" "_" "F$GProcP"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "_" "_" "_" "_" "_" "_" "_" "_"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "_" "_" "_" "_" "_" "_" "_" "_"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "F$Trans" "_" "_" "_" "_" "_" "_" "_"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "_" "_" "_" "_" "_" "_" "_" "_"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "I$Attach" "I$Detach" "I$Dup" "I$Create" "I$Open" "I$MakDir" "I$ChgDir" "I$Delete"
+    "I$Seek" "I$Read" "I$Write" "I$ReadLn" "I$WritLn" "I$GetStt" "I$SetStt" "I$Close"
+
+    "_" "_" "I$SSetSt" "_" "_" "_" "_" "_"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "_" "_" "_" "_" "_" "_" "_" "_"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "_" "_" "_" "_" "_" "_" "_" "_"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "_" "_" "_" "_" "_" "_" "_" "_"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "_" "_" "_" "_" "_" "_" "_" "_"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "_" "_" "_" "_" "_" "_" "_" "_"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+
+    "_" "_" "_" "_" "_" "_" "_" "_"
+    "_" "_" "_" "_" "_" "_" "_" "_"
+]; # must match syscall size
+
+# d16 added for OS-9 request code when unconditional trap number is 0.
+define pcodeop __os9_syscall;
+define pcodeop os9_syscall_error;
+
+:os9 syscall    is op015=0x4E40; syscall { local func:2 = syscall; CF = __os9_syscall(func); }
+
+@include "OS9_syscalls.sinc"
+
+# User-defined traps also have a function-word after them.
+define pcodeop __os9_trap;
+:trap "#"^op03,d16	is opbig=0x4e & op67=1 & op45=0 & op03; d16 {
+    local vector:1 = op03;
+    local func:2 = d16;
+    CF = __os9_trap(vector, func);
+}
