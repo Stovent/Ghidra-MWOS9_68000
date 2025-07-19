@@ -6,13 +6,9 @@
 package os9.kernel;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.AbstractMap.SimpleEntry;
 
-import ghidra.app.util.bin.BinaryReader;
 import ghidra.app.util.bin.ByteProvider;
 import ghidra.app.util.bin.StructConverter;
-import ghidra.program.model.address.Address;
 import ghidra.program.model.data.ArrayDataType;
 import ghidra.program.model.data.ByteDataType;
 import ghidra.program.model.data.CategoryPath;
@@ -20,20 +16,15 @@ import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.StructureDataType;
 import ghidra.program.model.data.UnsignedIntegerDataType;
 import ghidra.program.model.data.UnsignedShortDataType;
-import ghidra.program.model.listing.Program;
-import ghidra.program.model.util.CodeUnitInsertionException;
 import ghidra.util.exception.DuplicateNameException;
-import os9.util.Helpers;
 
 /**
- * System Globals.
  * @author Stovent
  */
 public class SystemGlobals implements StructConverter {
     public static final String NAME = "System Globals";
 
     public SystemGlobals(ByteProvider provider) throws IOException {
-        // BinaryReader reader = new BinaryReader(provider, false); // Big-endian
     }
 
     public static String getName() {
@@ -48,7 +39,7 @@ public class SystemGlobals implements StructConverter {
     /** Properties ending with "end" means address of the last element + sizeof(element).
      * Properties ending with "last" means address of the last element.
      */
-    public static DataType staticDataType() throws DuplicateNameException, IOException {
+    public static StructureDataType staticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
         struct.add(new UnsignedShortDataType(), "D_ID", null); // 0x000

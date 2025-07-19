@@ -60,7 +60,11 @@ public class DeviceDriverHeader implements Structure {
 
     @Override
     public DataType toDataType() throws DuplicateNameException, IOException {
-        StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), getName(), 0);
+        return staticDataType();
+    }
+
+    public static StructureDataType staticDataType() {
+        StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
         struct.add(new UnsignedIntegerDataType(), "M$Exec", null);
         struct.add(new UnsignedIntegerDataType(), "M$Excpt", null);

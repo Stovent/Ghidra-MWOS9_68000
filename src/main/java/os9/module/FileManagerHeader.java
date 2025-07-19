@@ -62,7 +62,7 @@ public class FileManagerHeader implements Structure {
         return staticDataType();
     }
 
-    public static DataType staticDataType() throws DuplicateNameException, IOException {
+    public static StructureDataType staticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
         struct.add(new UnsignedIntegerDataType(), "M$Exec", null);
@@ -188,7 +188,7 @@ public class FileManagerHeader implements Structure {
             return staticDataType();
         }
 
-        public static DataType staticDataType() {
+        public static StructureDataType staticDataType() {
             StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
             struct.add(new UnsignedShortDataType(), "Create", null);

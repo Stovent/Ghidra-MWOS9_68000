@@ -10,6 +10,7 @@ import java.util.List;
 
 import ghidra.program.model.data.DataType;
 
+import os9.cdi.*;
 import os9.kernel.*;
 import os9.module.*;
 
@@ -19,15 +20,27 @@ import os9.module.*;
  */
 public class OS9DataTypeRegistry {
     public static final List<DataType> DATA_TYPES = Arrays.asList(
-        //SystemGlobals.staticDataType(),
-        //DataHeader.staticDataType(),
+        CdfmDeviceDriverStaticStorage.singleStaticDataType(),
+        CdfmDriveTable.staticDataType(),
+        CdfmPathDescriptor.staticDataType(),
+        PlayControlBlock.staticDataType(),
+        PlayControlList.staticDataType(),
+
+        CommonDeviceStaticStorage.staticDataType(),
+        DeviceTableEntry.staticDataType(),
+        PathDescriptor.staticDataType(),
+        ProcessDescriptor.staticDataType(),
+        RegisterStack.staticDataType(),
+        SystemGlobals.staticDataType(),
+
+        DataHeader.staticDataType(),
         // DeviceDescriptorHeader.staticDataType(),
-        // DeviceDriverHeader.staticDataType(),
-        //FileManagerHeader.staticDataType(),
-        //InitHeader.staticDataType(),
+        DeviceDriverHeader.staticDataType(),
+        FileManagerHeader.staticDataType(),
+        InitHeader.staticDataType(),
         // ModuleHeader.staticDataType(),
-        //ProgramHeader.staticDataType(),
-        //SystemHeader.staticDataType(),
-        //TrapHandlerHeader.staticDataType()
+        ProgramHeader.staticDataType(),
+        SystemHeader.staticDataType(),
+        TrapHandlerHeader.staticDataType()
     );
 }

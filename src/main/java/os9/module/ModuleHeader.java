@@ -18,7 +18,7 @@ import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.StructureDataType;
 import ghidra.program.model.data.UnsignedIntegerDataType;
 import ghidra.program.model.data.UnsignedShortDataType;
-import ghidra.program.model.listing.CodeUnit;
+import ghidra.program.model.listing.CommentType;
 import ghidra.program.model.listing.Listing;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.util.CodeUnitInsertionException;
@@ -122,8 +122,8 @@ public class ModuleHeader implements Structure {
 
         Helpers.createString(program, moduleAddress, NAME_OFFSET, m_nameOffset);
 
-        listing.setComment(moduleAddress.add(TYPE_OFFSET), CodeUnit.EOL_COMMENT, m_type.toString());
-        listing.setComment(moduleAddress.add(LANG_OFFSET), CodeUnit.EOL_COMMENT, m_lang.toString());
+        listing.setComment(moduleAddress.add(TYPE_OFFSET), CommentType.EOL, m_type.toString());
+        listing.setComment(moduleAddress.add(LANG_OFFSET), CommentType.EOL, m_lang.toString());
 
         this.extraHeader.applyToProgram(moduleAddress, program);
 
@@ -150,6 +150,28 @@ public class ModuleHeader implements Structure {
         struct.add(new ArrayDataType(StructConverter.BYTE, 0x0E, -1), "Reserved", null);
         struct.add(new UnsignedShortDataType(), "M$Parity", null);
         struct.add(this.extraHeader.toDataType(), this.extraHeader.getName(), null);
+
+        return struct;
+    }
+
+    public static StructureDataType commonStaticDataType() {
+        StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), "Common Header", 0);
+
+        struct.add(new UnsignedShortDataType(), "M$ID", null);
+        struct.add(new UnsignedShortDataType(), "M$SysRev", null);
+        struct.add(new UnsignedIntegerDataType(), "M$Size", null);
+        struct.add(new UnsignedIntegerDataType(), "M$Owner", null);
+        struct.add(new UnsignedIntegerDataType(), "M$Name", null);
+        struct.add(new UnsignedShortDataType(), "M$Accs", null);
+        struct.add(new ByteDataType(), "M$Type", null);
+        struct.add(new ByteDataType(), "M$Lang", null);
+        struct.add(new ByteDataType(), "M$Attr", null);
+        struct.add(new ByteDataType(), "M$Revs", null);
+        struct.add(new UnsignedShortDataType(), "M$Edit", null);
+        struct.add(new UnsignedIntegerDataType(), "M$Usage", null);
+        struct.add(new UnsignedIntegerDataType(), "M$Symbol", null);
+        struct.add(new ArrayDataType(StructConverter.BYTE, 0x0E, -1), "Reserved", null);
+        struct.add(new UnsignedShortDataType(), "M$Parity", null);
 
         return struct;
     }

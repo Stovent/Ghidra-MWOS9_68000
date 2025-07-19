@@ -52,7 +52,7 @@ public class DataHeader implements Structure {
         return staticDataType();
     }
 
-    public static DataType staticDataType() throws DuplicateNameException, IOException {
+    public static StructureDataType staticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
         // struct.add(new UnsignedIntegerDataType(), "M$Exec", null);

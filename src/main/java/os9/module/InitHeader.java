@@ -108,7 +108,7 @@ public class InitHeader implements Structure {
         return staticDataType();
     }
 
-    public static DataType staticDataType() throws DuplicateNameException, IOException {
+    public static StructureDataType staticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
         struct.add(new UnsignedIntegerDataType(), "Reserved", null);
@@ -177,7 +177,7 @@ public class InitHeader implements Structure {
             return staticDataType();
         }
 
-        public static DataType staticDataType() throws DuplicateNameException, IOException {
+        public static StructureDataType staticDataType() {
             StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
             struct.add(new UnsignedShortDataType(), "Memory Type", null);
