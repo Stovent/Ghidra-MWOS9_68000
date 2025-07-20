@@ -14,13 +14,13 @@ import ghidra.program.model.address.Address;
 import ghidra.program.model.data.CategoryPath;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.StructureDataType;
-import ghidra.program.model.data.UnsignedIntegerDataType;
-import ghidra.program.model.data.UnsignedShortDataType;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.util.CodeUnitInsertionException;
 import ghidra.util.Msg;
 import ghidra.util.exception.DuplicateNameException;
 import ghidra.util.exception.InvalidInputException;
+
+import os9.util.DataTypes;
 import os9.util.Helpers;
 import os9.util.Structure;
 
@@ -65,8 +65,8 @@ public class FileManagerHeader implements Structure {
     public static StructureDataType staticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
-        struct.add(new UnsignedIntegerDataType(), "M$Exec", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Excpt", null);
+        struct.add(DataTypes.U32, "M$Exec", null);
+        struct.add(DataTypes.U32, "M$Excpt", null);
 
         return struct;
     }
@@ -191,19 +191,19 @@ public class FileManagerHeader implements Structure {
         public static StructureDataType staticDataType() {
             StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
-            struct.add(new UnsignedShortDataType(), "Create", null);
-            struct.add(new UnsignedShortDataType(), "Open", null);
-            struct.add(new UnsignedShortDataType(), "MakDir", null);
-            struct.add(new UnsignedShortDataType(), "ChgDir", null);
-            struct.add(new UnsignedShortDataType(), "Delete", null);
-            struct.add(new UnsignedShortDataType(), "seek", null);
-            struct.add(new UnsignedShortDataType(), "Read", null);
-            struct.add(new UnsignedShortDataType(), "Write", null);
-            struct.add(new UnsignedShortDataType(), "ReadLn", null);
-            struct.add(new UnsignedShortDataType(), "WriteLn", null);
-            struct.add(new UnsignedShortDataType(), "GetStat", null);
-            struct.add(new UnsignedShortDataType(), "SetStat", null);
-            struct.add(new UnsignedShortDataType(), "Close ", null);
+            struct.add(DataTypes.U16, "Create", null);
+            struct.add(DataTypes.U16, "Open", null);
+            struct.add(DataTypes.U16, "MakDir", null);
+            struct.add(DataTypes.U16, "ChgDir", null);
+            struct.add(DataTypes.U16, "Delete", null);
+            struct.add(DataTypes.U16, "seek", null);
+            struct.add(DataTypes.U16, "Read", null);
+            struct.add(DataTypes.U16, "Write", null);
+            struct.add(DataTypes.U16, "ReadLn", null);
+            struct.add(DataTypes.U16, "WriteLn", null);
+            struct.add(DataTypes.U16, "GetStat", null);
+            struct.add(DataTypes.U16, "SetStat", null);
+            struct.add(DataTypes.U16, "Close ", null);
 
             return struct;
         }

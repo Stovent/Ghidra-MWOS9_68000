@@ -7,14 +7,13 @@ package os9.kernel;
 
 import java.io.IOException;
 
-import ghidra.app.util.bin.ByteProvider;
 import ghidra.app.util.bin.StructConverter;
 import ghidra.program.model.data.CategoryPath;
 import ghidra.program.model.data.DataType;
-import ghidra.program.model.data.Pointer32DataType;
 import ghidra.program.model.data.StructureDataType;
-import ghidra.program.model.data.UnsignedShortDataType;
 import ghidra.util.exception.DuplicateNameException;
+
+import os9.util.DataTypes;
 
 /**
  * @author Stovent
@@ -22,7 +21,7 @@ import ghidra.util.exception.DuplicateNameException;
 public class DeviceTableEntry implements StructConverter {
     public static final String NAME = "Device Table Entry";
 
-    public DeviceTableEntry(ByteProvider provider) throws IOException {
+    public DeviceTableEntry() {
     }
 
     public static String getName() {
@@ -38,11 +37,11 @@ public class DeviceTableEntry implements StructConverter {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
         // Module header is variable length so not usable here.
-        struct.add(new Pointer32DataType(), "V$DRIV", null);
-        struct.add(new Pointer32DataType(CommonDeviceStaticStorage.staticDataType()), "V$STAT", null);
-        struct.add(new Pointer32DataType(), "V$DESC", null); // Device Descriptor is variable-length.
-        struct.add(new Pointer32DataType(), "V$FMGR", null);
-        struct.add(new UnsignedShortDataType(), "V$USRS", null);
+        struct.add(DataTypes.VoidPointer, "V$DRIV", null);
+        struct.add(DataTypes.pointer(CommonDeviceStaticStorage.staticDataType()), "V$STAT", null);
+        struct.add(DataTypes.VoidPointer, "V$DESC", null); // Device Descriptor is variable-length.
+        struct.add(DataTypes.VoidPointer, "V$FMGR", null);
+        struct.add(DataTypes.U16, "V$USRS", null);
 
         return struct;
     }

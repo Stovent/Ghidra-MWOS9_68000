@@ -7,17 +7,13 @@ package os9.kernel;
 
 import java.io.IOException;
 
-import ghidra.app.util.bin.ByteProvider;
 import ghidra.app.util.bin.StructConverter;
-import ghidra.program.model.data.ArrayDataType;
-import ghidra.program.model.data.ByteDataType;
 import ghidra.program.model.data.CategoryPath;
 import ghidra.program.model.data.DataType;
-import ghidra.program.model.data.Pointer32DataType;
 import ghidra.program.model.data.StructureDataType;
-import ghidra.program.model.data.UnsignedIntegerDataType;
-import ghidra.program.model.data.UnsignedShortDataType;
 import ghidra.util.exception.DuplicateNameException;
+
+import os9.util.DataTypes;
 
 /**
  * @author Stovent
@@ -25,7 +21,7 @@ import ghidra.util.exception.DuplicateNameException;
 public class PathDescriptor implements StructConverter {
     public static final String NAME = "Path Descriptor";
 
-    public PathDescriptor(ByteProvider provider) throws IOException {
+    public PathDescriptor() {
     }
 
     public static String getName() {
@@ -40,9 +36,9 @@ public class PathDescriptor implements StructConverter {
     public static StructureDataType staticDataType() {
         StructureDataType struct = commonStaticDataType();
 
-        struct.add(new ArrayDataType(StructConverter.BYTE, 86, -1), "PD_FST", null);
+        struct.add(DataTypes.u8Array(86), "PD_FST", null);
 
-        struct.add(new ArrayDataType(StructConverter.BYTE, 128, -1), "PD_OPT", null); // 0x80
+        struct.add(DataTypes.u8Array(128), "PD_OPT", null); // 0x80
 
         return struct;
     }
@@ -50,23 +46,23 @@ public class PathDescriptor implements StructConverter {
     public static StructureDataType commonStaticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
-        struct.add(new UnsignedShortDataType(), "PD_PD", null); // 0x00
-        struct.add(new ByteDataType(), "PD_MOD", null);
-        struct.add(new ByteDataType(), "PD_CNT", null);
-        struct.add(new Pointer32DataType(DeviceTableEntry.staticDataType()), "PD_DEV", null);
-        struct.add(new UnsignedShortDataType(), "PD_CPR", null);
-        struct.add(new Pointer32DataType(RegisterStack.staticDataType()), "PD_RGS", null);
-        struct.add(new UnsignedIntegerDataType(), "PD_BUF", null);
+        struct.add(DataTypes.U16, "PD_PD", null); // 0x00
+        struct.add(DataTypes.U8, "PD_MOD", null);
+        struct.add(DataTypes.U8, "PD_CNT", null);
+        struct.add(DataTypes.pointer(DeviceTableEntry.staticDataType()), "PD_DEV", null);
+        struct.add(DataTypes.U16, "PD_CPR", null);
+        struct.add(DataTypes.pointer(RegisterStack.staticDataType()), "PD_RGS", null);
+        struct.add(DataTypes.U32, "PD_BUF", null);
 
-        struct.add(new UnsignedIntegerDataType(), "PD_USER", null); // 0x12
-        struct.add(new UnsignedIntegerDataType(), "PD_PATHS", null);
-        struct.add(new UnsignedShortDataType(), "PD_COUNT", null);
-        struct.add(new UnsignedShortDataType(), "PD_LProc", null);
-        struct.add(new UnsignedShortDataType(), "unused", null);
+        struct.add(DataTypes.U32, "PD_USER", null); // 0x12
+        struct.add(DataTypes.U32, "PD_PATHS", null);
+        struct.add(DataTypes.U16, "PD_COUNT", null);
+        struct.add(DataTypes.U16, "PD_LProc", null);
+        struct.add(DataTypes.U16, "unused", null);
 
-        struct.add(new UnsignedIntegerDataType(), "PD_ErrNo", null); // 0x20
-        struct.add(new Pointer32DataType(SystemGlobals.staticDataType()), "PD_SysGlob", null);
-        struct.add(new UnsignedShortDataType(), "reserved", null);
+        struct.add(DataTypes.U32, "PD_ErrNo", null); // 0x20
+        struct.add(DataTypes.pointer(SystemGlobals.staticDataType()), "PD_SysGlob", null);
+        struct.add(DataTypes.U16, "reserved", null);
 
         return struct;
     }

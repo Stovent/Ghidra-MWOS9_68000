@@ -21,7 +21,7 @@ import os9.util.DataTypes;
 public class CdfmDriveTable implements StructConverter {
     public static final String NAME = "CDFM Drive Table";
 
-    public CdfmDriveTable() throws IOException {
+    public CdfmDriveTable() {
     }
 
     public static String getName() {

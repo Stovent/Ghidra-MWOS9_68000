@@ -14,12 +14,13 @@ import ghidra.program.model.address.Address;
 import ghidra.program.model.data.CategoryPath;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.StructureDataType;
-import ghidra.program.model.data.UnsignedIntegerDataType;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.util.CodeUnitInsertionException;
 import ghidra.util.exception.DuplicateNameException;
 import ghidra.util.exception.InvalidInputException;
 import ghidra.util.Msg;
+
+import os9.util.DataTypes;
 import os9.util.Helpers;
 import os9.util.Structure;
 
@@ -78,14 +79,14 @@ public class TrapHandlerHeader implements Structure {
     public static StructureDataType staticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
-        struct.add(new UnsignedIntegerDataType(), "M$Exec", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Excpt", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Mem", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Stack", null);
-        struct.add(new UnsignedIntegerDataType(), "M$IData", null);
-        struct.add(new UnsignedIntegerDataType(), "M$IRefs", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Init", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Term", null);
+        struct.add(DataTypes.U32, "M$Exec", null);
+        struct.add(DataTypes.U32, "M$Excpt", null);
+        struct.add(DataTypes.U32, "M$Mem", null);
+        struct.add(DataTypes.U32, "M$Stack", null);
+        struct.add(DataTypes.U32, "M$IData", null);
+        struct.add(DataTypes.U32, "M$IRefs", null);
+        struct.add(DataTypes.U32, "M$Init", null);
+        struct.add(DataTypes.U32, "M$Term", null);
 
         return struct;
     }

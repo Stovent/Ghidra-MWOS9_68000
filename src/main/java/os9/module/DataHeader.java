@@ -13,10 +13,11 @@ import ghidra.program.model.address.Address;
 import ghidra.program.model.data.CategoryPath;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.StructureDataType;
-import ghidra.program.model.data.UnsignedIntegerDataType;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.util.CodeUnitInsertionException;
 import ghidra.util.exception.DuplicateNameException;
+
+import os9.util.DataTypes;
 import os9.util.Helpers;
 import os9.util.Structure;
 
@@ -55,8 +56,8 @@ public class DataHeader implements Structure {
     public static StructureDataType staticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
-        // struct.add(new UnsignedIntegerDataType(), "M$Exec", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Data", null);
+        // struct.add(DataTypes.U32, "M$Exec", null);
+        struct.add(DataTypes.U32, "M$Data", null);
 
         return struct;
     }

@@ -11,17 +11,15 @@ import java.util.AbstractMap.SimpleEntry;
 
 import ghidra.app.util.bin.BinaryReader;
 import ghidra.app.util.bin.ByteProvider;
-import ghidra.app.util.bin.StructConverter;
 import ghidra.program.model.address.Address;
-import ghidra.program.model.data.ByteDataType;
 import ghidra.program.model.data.CategoryPath;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.StructureDataType;
-import ghidra.program.model.data.UnsignedIntegerDataType;
-import ghidra.program.model.data.UnsignedShortDataType;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.util.CodeUnitInsertionException;
 import ghidra.util.exception.DuplicateNameException;
+
+import os9.util.DataTypes;
 import os9.util.Helpers;
 import os9.util.Structure;
 
@@ -111,34 +109,34 @@ public class InitHeader implements Structure {
     public static StructureDataType staticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
-        struct.add(new UnsignedIntegerDataType(), "Reserved", null);
-        struct.add(new UnsignedShortDataType(), "M$PollSz", null);
-        struct.add(new UnsignedShortDataType(), "M$DevCnt", null);
-        struct.add(new UnsignedShortDataType(), "M$Procs", null);
-        struct.add(new UnsignedShortDataType(), "M$Paths", null);
-        struct.add(new UnsignedShortDataType(), "M$SParam", null);
-        struct.add(new UnsignedShortDataType(), "M$SysGo", null);
-        struct.add(new UnsignedShortDataType(), "M$SysDev", null);
-        struct.add(new UnsignedShortDataType(), "M$Consol", null);
-        struct.add(new UnsignedShortDataType(), "M$Extens", null);
-        struct.add(new UnsignedShortDataType(), "M$Clock", null);
-        struct.add(new UnsignedShortDataType(), "M$Slice", null);
-        struct.add(new UnsignedShortDataType(), "Reserved", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Site", null);
-        struct.add(new UnsignedShortDataType(), "M$Instal", null);
-        struct.add(new UnsignedIntegerDataType(), "M$CPUType", null);
-        struct.add(new UnsignedIntegerDataType(), "M$OS9Lvl", null);
-        struct.add(new UnsignedShortDataType(), "M$OS9Rev", null);
-        struct.add(new UnsignedShortDataType(), "M$SysPri", null);
-        struct.add(new UnsignedShortDataType(), "M$MinPty", null);
-        struct.add(new UnsignedShortDataType(), "M$MaxAge", null);
-        struct.add(new UnsignedIntegerDataType(), "Reserved", null);
-        struct.add(new UnsignedShortDataType(), "M$Events", null);
-        struct.add(new ByteDataType(), "M$Compat", null);
-        struct.add(new ByteDataType(), "M$Compat2", null);
-        struct.add(new UnsignedShortDataType(), "M$MemList", null);
-        struct.add(new UnsignedShortDataType(), "M$IRQStk", null);
-        struct.add(new UnsignedShortDataType(), "M$ColdTrys", null);
+        struct.add(DataTypes.U32, "Reserved", null);
+        struct.add(DataTypes.U16, "M$PollSz", null);
+        struct.add(DataTypes.U16, "M$DevCnt", null);
+        struct.add(DataTypes.U16, "M$Procs", null);
+        struct.add(DataTypes.U16, "M$Paths", null);
+        struct.add(DataTypes.U16, "M$SParam", null);
+        struct.add(DataTypes.U16, "M$SysGo", null);
+        struct.add(DataTypes.U16, "M$SysDev", null);
+        struct.add(DataTypes.U16, "M$Consol", null);
+        struct.add(DataTypes.U16, "M$Extens", null);
+        struct.add(DataTypes.U16, "M$Clock", null);
+        struct.add(DataTypes.U16, "M$Slice", null);
+        struct.add(DataTypes.U16, "Reserved", null);
+        struct.add(DataTypes.U32, "M$Site", null);
+        struct.add(DataTypes.U16, "M$Instal", null);
+        struct.add(DataTypes.U32, "M$CPUType", null);
+        struct.add(DataTypes.U32, "M$OS9Lvl", null);
+        struct.add(DataTypes.U16, "M$OS9Rev", null);
+        struct.add(DataTypes.U16, "M$SysPri", null);
+        struct.add(DataTypes.U16, "M$MinPty", null);
+        struct.add(DataTypes.U16, "M$MaxAge", null);
+        struct.add(DataTypes.U32, "Reserved", null);
+        struct.add(DataTypes.U16, "M$Events", null);
+        struct.add(DataTypes.U8, "M$Compat", null);
+        struct.add(DataTypes.U8, "M$Compat2", null);
+        struct.add(DataTypes.U16, "M$MemList", null);
+        struct.add(DataTypes.U16, "M$IRQStk", null);
+        struct.add(DataTypes.U16, "M$ColdTrys", null);
 
         return struct;
     }
@@ -180,17 +178,17 @@ public class InitHeader implements Structure {
         public static StructureDataType staticDataType() {
             StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
-            struct.add(new UnsignedShortDataType(), "Memory Type", null);
-            struct.add(new UnsignedShortDataType(), "Priority", null);
-            struct.add(new UnsignedShortDataType(), "Access permissions", null);
-            struct.add(new UnsignedShortDataType(), "Search Block Size", null);
-            struct.add(new UnsignedIntegerDataType(), "Low Memory Limit", null);
-            struct.add(new UnsignedIntegerDataType(), "High Memory Limit", null);
-            struct.add(new UnsignedShortDataType(), "Description String Offset", null);
-            struct.add(new UnsignedShortDataType(), "Reserved", null);
-            struct.add(new UnsignedIntegerDataType(), "Address Translation Adjustment", null);
-            struct.add(new UnsignedIntegerDataType(), "Reserved", null);
-            struct.add(new UnsignedIntegerDataType(), "Reserved", null);
+            struct.add(DataTypes.U16, "Memory Type", null);
+            struct.add(DataTypes.U16, "Priority", null);
+            struct.add(DataTypes.U16, "Access permissions", null);
+            struct.add(DataTypes.U16, "Search Block Size", null);
+            struct.add(DataTypes.U32, "Low Memory Limit", null);
+            struct.add(DataTypes.U32, "High Memory Limit", null);
+            struct.add(DataTypes.U16, "Description String Offset", null);
+            struct.add(DataTypes.U16, "Reserved", null);
+            struct.add(DataTypes.U32, "Address Translation Adjustment", null);
+            struct.add(DataTypes.U32, "Reserved", null);
+            struct.add(DataTypes.U32, "Reserved", null);
 
             return struct;
         }

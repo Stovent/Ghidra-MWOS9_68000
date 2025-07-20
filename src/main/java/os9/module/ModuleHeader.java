@@ -9,20 +9,18 @@ import java.io.IOException;
 
 import ghidra.app.util.bin.BinaryReader;
 import ghidra.app.util.bin.ByteProvider;
-import ghidra.app.util.bin.StructConverter;
 import ghidra.program.model.address.Address;
-import ghidra.program.model.data.ArrayDataType;
-import ghidra.program.model.data.ByteDataType;
 import ghidra.program.model.data.CategoryPath;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.StructureDataType;
-import ghidra.program.model.data.UnsignedIntegerDataType;
-import ghidra.program.model.data.UnsignedShortDataType;
 import ghidra.program.model.listing.CommentType;
 import ghidra.program.model.listing.Listing;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.util.CodeUnitInsertionException;
+import ghidra.util.InvalidNameException;
 import ghidra.util.exception.DuplicateNameException;
+
+import os9.util.DataTypes;
 import os9.util.Helpers;
 import os9.util.InvalidModuleHeaderException;
 import os9.util.Structure;
@@ -132,23 +130,12 @@ public class ModuleHeader implements Structure {
 
     @Override
     public DataType toDataType() throws DuplicateNameException, IOException {
-        StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
+        StructureDataType struct = commonStaticDataType();
+        try {
+            struct.setName(NAME);
+        }
+        catch(InvalidNameException e) {} // Should not happen.
 
-        struct.add(new UnsignedShortDataType(), "M$ID", null);
-        struct.add(new UnsignedShortDataType(), "M$SysRev", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Size", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Owner", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Name", null);
-        struct.add(new UnsignedShortDataType(), "M$Accs", null);
-        struct.add(new ByteDataType(), "M$Type", null);
-        struct.add(new ByteDataType(), "M$Lang", null);
-        struct.add(new ByteDataType(), "M$Attr", null);
-        struct.add(new ByteDataType(), "M$Revs", null);
-        struct.add(new UnsignedShortDataType(), "M$Edit", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Usage", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Symbol", null);
-        struct.add(new ArrayDataType(StructConverter.BYTE, 0x0E, -1), "Reserved", null);
-        struct.add(new UnsignedShortDataType(), "M$Parity", null);
         struct.add(this.extraHeader.toDataType(), this.extraHeader.getName(), null);
 
         return struct;
@@ -157,21 +144,21 @@ public class ModuleHeader implements Structure {
     public static StructureDataType commonStaticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), "Common Header", 0);
 
-        struct.add(new UnsignedShortDataType(), "M$ID", null);
-        struct.add(new UnsignedShortDataType(), "M$SysRev", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Size", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Owner", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Name", null);
-        struct.add(new UnsignedShortDataType(), "M$Accs", null);
-        struct.add(new ByteDataType(), "M$Type", null);
-        struct.add(new ByteDataType(), "M$Lang", null);
-        struct.add(new ByteDataType(), "M$Attr", null);
-        struct.add(new ByteDataType(), "M$Revs", null);
-        struct.add(new UnsignedShortDataType(), "M$Edit", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Usage", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Symbol", null);
-        struct.add(new ArrayDataType(StructConverter.BYTE, 0x0E, -1), "Reserved", null);
-        struct.add(new UnsignedShortDataType(), "M$Parity", null);
+        struct.add(DataTypes.U16, "M$ID", null);
+        struct.add(DataTypes.U16, "M$SysRev", null);
+        struct.add(DataTypes.U32, "M$Size", null);
+        struct.add(DataTypes.U32, "M$Owner", null);
+        struct.add(DataTypes.U32, "M$Name", null);
+        struct.add(DataTypes.U16, "M$Accs", null);
+        struct.add(DataTypes.U8, "M$Type", null);
+        struct.add(DataTypes.U8, "M$Lang", null);
+        struct.add(DataTypes.U8, "M$Attr", null);
+        struct.add(DataTypes.U8, "M$Revs", null);
+        struct.add(DataTypes.U16, "M$Edit", null);
+        struct.add(DataTypes.U32, "M$Usage", null);
+        struct.add(DataTypes.U32, "M$Symbol", null);
+        struct.add(DataTypes.u8Array(0x0E), "Reserved", null);
+        struct.add(DataTypes.U16, "M$Parity", null);
 
         return struct;
     }

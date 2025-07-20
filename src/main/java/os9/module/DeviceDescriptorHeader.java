@@ -9,18 +9,15 @@ import java.io.IOException;
 
 import ghidra.app.util.bin.BinaryReader;
 import ghidra.app.util.bin.ByteProvider;
-import ghidra.app.util.bin.StructConverter;
 import ghidra.program.model.address.Address;
-import ghidra.program.model.data.ArrayDataType;
-import ghidra.program.model.data.ByteDataType;
 import ghidra.program.model.data.CategoryPath;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.StructureDataType;
-import ghidra.program.model.data.UnsignedIntegerDataType;
-import ghidra.program.model.data.UnsignedShortDataType;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.util.CodeUnitInsertionException;
 import ghidra.util.exception.DuplicateNameException;
+
+import os9.util.DataTypes;
 import os9.util.Helpers;
 import os9.util.Structure;
 
@@ -66,17 +63,17 @@ public class DeviceDescriptorHeader implements Structure {
     public DataType toDataType() throws DuplicateNameException, IOException {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
-        struct.add(new UnsignedIntegerDataType(), "M$Port", null);
-        struct.add(new ByteDataType(), "M$Vector", null);
-        struct.add(new ByteDataType(), "M$IRQLvl", null);
-        struct.add(new ByteDataType(), "M$Prior", null);
-        struct.add(new ByteDataType(), "M$Mode", null);
-        struct.add(new UnsignedShortDataType(), "M$FMgr", null);
-        struct.add(new UnsignedShortDataType(), "M$PDev", null);
-        struct.add(new UnsignedShortDataType(), "M$DevCon", null);
-        struct.add(new ArrayDataType(StructConverter.BYTE, 0x08, -1), "Reserved", null);
-        struct.add(new UnsignedShortDataType(), "M$Opt", null);
-        struct.add(new ArrayDataType(StructConverter.BYTE, m_opt, -1), "Options", null);
+        struct.add(DataTypes.U32, "M$Port", null);
+        struct.add(DataTypes.U8, "M$Vector", null);
+        struct.add(DataTypes.U8, "M$IRQLvl", null);
+        struct.add(DataTypes.U8, "M$Prior", null);
+        struct.add(DataTypes.U8, "M$Mode", null);
+        struct.add(DataTypes.U16, "M$FMgr", null);
+        struct.add(DataTypes.U16, "M$PDev", null);
+        struct.add(DataTypes.U16, "M$DevCon", null);
+        struct.add(DataTypes.u8Array(0x08), "Reserved", null);
+        struct.add(DataTypes.U16, "M$Opt", null);
+        struct.add(DataTypes.u8Array(m_opt), "Options", null);
 
         // struct.add(new /* todo */DataType(), "M$DTyp", null);
         // The option section depends on the M$DTyp field.

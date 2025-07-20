@@ -21,7 +21,7 @@ import os9.util.DataTypes;
 public class PlayControlBlock implements StructConverter {
     public static final String NAME = "Play Control Block";
 
-    public PlayControlBlock() throws IOException {
+    public PlayControlBlock() {
     }
 
     public static String getName() {

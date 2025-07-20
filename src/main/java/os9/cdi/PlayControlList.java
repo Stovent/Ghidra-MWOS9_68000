@@ -21,7 +21,7 @@ import os9.util.DataTypes;
 public class PlayControlList implements StructConverter {
     public static final String NAME = "Play Control List";
 
-    public PlayControlList() throws IOException {
+    public PlayControlList() {
     }
 
     public static String getName() {

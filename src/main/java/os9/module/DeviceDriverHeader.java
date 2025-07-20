@@ -9,22 +9,18 @@ import java.io.IOException;
 
 import ghidra.app.util.bin.BinaryReader;
 import ghidra.app.util.bin.ByteProvider;
-import ghidra.app.util.bin.StructConverter;
 import ghidra.program.database.function.OverlappingFunctionException;
 import ghidra.program.model.address.Address;
-// import ghidra.program.model.address.AddressSet;
 import ghidra.program.model.data.CategoryPath;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.StructureDataType;
-import ghidra.program.model.data.UnsignedIntegerDataType;
-import ghidra.program.model.data.UnsignedShortDataType;
-// import ghidra.program.model.listing.FunctionManager;
 import ghidra.program.model.listing.Program;
-// import ghidra.program.model.symbol.SourceType;
 import ghidra.program.model.util.CodeUnitInsertionException;
 import ghidra.util.exception.DuplicateNameException;
 import ghidra.util.exception.InvalidInputException;
 import ghidra.util.Msg;
+
+import os9.util.DataTypes;
 import os9.util.Helpers;
 import os9.util.Structure;
 
@@ -66,9 +62,9 @@ public class DeviceDriverHeader implements Structure {
     public static StructureDataType staticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
-        struct.add(new UnsignedIntegerDataType(), "M$Exec", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Excpt", null);
-        struct.add(new UnsignedIntegerDataType(), "M$Mem", null);
+        struct.add(DataTypes.U32, "M$Exec", null);
+        struct.add(DataTypes.U32, "M$Excpt", null);
+        struct.add(DataTypes.U32, "M$Mem", null);
 
         return struct;
     }
@@ -152,13 +148,13 @@ public class DeviceDriverHeader implements Structure {
         public DataType toDataType() {
             StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), getName(), 0);
 
-            struct.add(new UnsignedShortDataType(), "Init", null);
-            struct.add(new UnsignedShortDataType(), "Read", null);
-            struct.add(new UnsignedShortDataType(), "Write", null);
-            struct.add(new UnsignedShortDataType(), "GetStat", null);
-            struct.add(new UnsignedShortDataType(), "SetStat", null);
-            struct.add(new UnsignedShortDataType(), "Term", null);
-            struct.add(new UnsignedShortDataType(), "Error", null);
+            struct.add(DataTypes.U16, "Init", null);
+            struct.add(DataTypes.U16, "Read", null);
+            struct.add(DataTypes.U16, "Write", null);
+            struct.add(DataTypes.U16, "GetStat", null);
+            struct.add(DataTypes.U16, "SetStat", null);
+            struct.add(DataTypes.U16, "Term", null);
+            struct.add(DataTypes.U16, "Error", null);
 
             return struct;
         }

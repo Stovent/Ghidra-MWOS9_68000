@@ -22,7 +22,7 @@ import os9.util.DataTypes;
 public class CommonDeviceStaticStorage implements StructConverter {
     public static final String NAME = "Common Device Static Storage";
 
-    public CommonDeviceStaticStorage(ByteProvider provider) throws IOException {
+    public CommonDeviceStaticStorage() {
     }
 
     public static String getName() {

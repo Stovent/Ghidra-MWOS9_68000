@@ -7,16 +7,13 @@ package os9.kernel;
 
 import java.io.IOException;
 
-import ghidra.app.util.bin.ByteProvider;
 import ghidra.app.util.bin.StructConverter;
-import ghidra.program.model.data.ArrayDataType;
 import ghidra.program.model.data.CategoryPath;
 import ghidra.program.model.data.DataType;
-import ghidra.program.model.data.Pointer32DataType;
 import ghidra.program.model.data.StructureDataType;
-import ghidra.program.model.data.UnsignedIntegerDataType;
-import ghidra.program.model.data.UnsignedShortDataType;
 import ghidra.util.exception.DuplicateNameException;
+
+import os9.util.DataTypes;
 
 /**
  * @author Stovent
@@ -24,7 +21,7 @@ import ghidra.util.exception.DuplicateNameException;
 public class RegisterStack implements StructConverter {
     public static final String NAME = "Register Stack";
 
-    public RegisterStack(ByteProvider provider) throws IOException {
+    public RegisterStack() {
     }
 
     public static String getName() {
@@ -39,20 +36,20 @@ public class RegisterStack implements StructConverter {
     public static StructureDataType staticDataType() {
         StructureDataType struct = new StructureDataType(new CategoryPath("/OS-9"), NAME, 0);
 
-        struct.add(new ArrayDataType(new UnsignedIntegerDataType(), 8, -1), "D", null);
-        struct.add(new ArrayDataType(new Pointer32DataType(), 8, -1), "A", null);
-        struct.add(new UnsignedShortDataType(), "SR", null);
-        struct.add(new UnsignedIntegerDataType(), "PC", null);
-        struct.add(new UnsignedIntegerDataType(), "SSP", null);
-        struct.add(new UnsignedIntegerDataType(), "USP", null);
-        struct.add(new UnsignedIntegerDataType(), "ISP", null);
-        struct.add(new UnsignedIntegerDataType(), "MSP", null);
-        struct.add(new UnsignedIntegerDataType(), "VBR", null);
-        struct.add(new UnsignedIntegerDataType(), "CACR", null);
-        struct.add(new UnsignedIntegerDataType(), "CAAR", null);
-        struct.add(new UnsignedIntegerDataType(), "SFC", null);
-        struct.add(new UnsignedIntegerDataType(), "DFC", null);
-        struct.add(new UnsignedShortDataType(), "unused", null);
+        struct.add(DataTypes.u32Array(8), "D", null);
+        struct.add(DataTypes.u32Array(8), "A", null);
+        struct.add(DataTypes.U16, "SR", null);
+        struct.add(DataTypes.U32, "PC", null);
+        struct.add(DataTypes.U32, "SSP", null);
+        struct.add(DataTypes.U32, "USP", null);
+        struct.add(DataTypes.U32, "ISP", null);
+        struct.add(DataTypes.U32, "MSP", null);
+        struct.add(DataTypes.U32, "VBR", null);
+        struct.add(DataTypes.U32, "CACR", null);
+        struct.add(DataTypes.U32, "CAAR", null);
+        struct.add(DataTypes.U32, "SFC", null);
+        struct.add(DataTypes.U32, "DFC", null);
+        struct.add(DataTypes.U16, "unused", null);
 
         return struct;
     }
